@@ -1,9 +1,7 @@
 from parser import spark
-'''
-pip3 install antlr4-python3-runtime
-'''
+
 if __name__ == '__main__':
-    sql = "create table xxxx as select * from shit.a limit 1; " \
+    sql = "create table xxxx as select * from xxx.a limit 1; " \
           "select * from adad.adfas; " \
           "with c as (select * from dw.ss limit 1) select * from c"
     result = spark.parse_string(sql, True)

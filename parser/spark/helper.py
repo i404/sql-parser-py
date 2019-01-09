@@ -3,7 +3,7 @@ from .base.SparkSqlBaseLexer import SparkSqlBaseLexer
 from .base.SparkSqlBaseParser import SparkSqlBaseParser
 from .visitor import SparkSqlVisitor
 from ..base_helper import BaseHelper
-from ..models  import ContentResult, StatementResult
+from ..models import ContentResult, StatementResult
 
 
 class SparkSqlHelper(BaseHelper):
