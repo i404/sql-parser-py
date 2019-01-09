@@ -109,8 +109,6 @@ class SparkSqlVisitor(SparkSqlBaseVisitor):
                     self.add_output_table(table)
 
     def visitTableIdentifier(self, ctx: SparkSqlBaseParser.TableIdentifierContext):
-        if self._current_opt_type is None:
-            return None
         if (self._current_opt_type == STATEMENT_TYPE.CREATE_TABLE_AS_SELECT or
                 self._current_opt_type == STATEMENT_TYPE.SELECT or
                 self._current_opt_type == STATEMENT_TYPE.INSERT_SELECT):
