@@ -18,13 +18,13 @@ if __name__ == '__main__':
     for statement_result in result.statement_details:
         print("statement content:")
         print(sql[statement_result.start:statement_result.stop])
-        print("statement type:")
+        print("\n\nstatement type:")
         print(statement_result.type)
 
-        print("statement input tables:")
+        print("\n\nstatement input tables:")
         for ts in statement_result.input_tables:
             print(ts)
 
-        print("statement output tables:")
+        print("\n\nstatement output tables:")
         for ts in statement_result.output_tables:
             print(ts)

@@ -1,9 +1,13 @@
-# Generated from SparkSqlBase.g4 by ANTLR 4.7.1
+# Generated from SparkSqlBase.g4 by ANTLR 4.8
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
-from typing.io import TextIO
 import sys
+if sys.version_info[1] > 5:
+	from typing import TextIO
+else:
+	from typing.io import TextIO
+
 
 def serializedATN():
     with StringIO() as buf:
@@ -1839,7 +1843,7 @@ class SparkSqlBaseParser ( Parser ):
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.7.1")
+        self.checkVersion("4.8")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
@@ -1850,7 +1854,7 @@ class SparkSqlBaseParser ( Parser ):
        * When false, INTERSECT is given the greater precedence over the other set
        * operations (UNION, EXCEPT and MINUS) as per the SQL standard.
        */
-      public boolean False = false;
+      public boolean legacy_setops_precedence_enbled = false;
 
       /**
        * Verify whether current token is a valid decimal token (which contains dot).
@@ -1865,15 +1869,11 @@ class SparkSqlBaseParser ( Parser ):
        * which is not a digit or letter or underscore.
        */
        '''
-    #   public boolean isValidDecimal() {
-    #     int nextChar = _input.LA(1);
-    #     if (nextChar >= 'A' && nextChar <= 'Z' || nextChar >= '0' && nextChar <= '9' ||
-    #       nextChar == '_') {
-    #       return false;
-    #     } else {
-    #       return true;
-    #     }
-    #   }
+
+    def isValidDecimal(self):
+        next_char = chr(self._input.LA(1))
+        return not ('A' <= next_char <= 'Z' or '0' <= next_char <= '9' or next_char == '_')
+
 
 
     class SingleStatementContext(ParserRuleContext):
@@ -1927,6 +1927,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SingleExpressionContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -1977,6 +1978,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class SingleTableIdentifierContext(ParserRuleContext):
 
@@ -2029,6 +2031,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SingleFunctionIdentifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2079,6 +2082,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class SingleDataTypeContext(ParserRuleContext):
 
@@ -2131,6 +2135,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SingleTableSchemaContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -2181,6 +2186,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class StatementContext(ParserRuleContext):
 
@@ -5963,6 +5969,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class UnsupportedHiveNativeCommandsContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -6675,6 +6682,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class CreateTableHeaderContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -6775,6 +6783,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class BucketSpecContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -6868,6 +6877,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class SkewSpecContext(ParserRuleContext):
 
@@ -6973,6 +6983,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class LocationSpecContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -7022,6 +7033,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class QueryContext(ParserRuleContext):
 
@@ -7081,6 +7093,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class InsertIntoContext(ParserRuleContext):
 
@@ -7408,6 +7421,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class PartitionSpecLocationContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -7466,6 +7480,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class PartitionSpecContext(ParserRuleContext):
 
@@ -7538,6 +7553,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class PartitionValContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -7601,6 +7617,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class DescribeFuncNameContext(ParserRuleContext):
 
@@ -7694,6 +7711,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class DescribeColNameContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -7759,6 +7777,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class CtesContext(ParserRuleContext):
 
@@ -7826,6 +7845,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class NamedQueryContext(ParserRuleContext):
 
@@ -7896,6 +7916,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class TableProviderContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -7946,6 +7967,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class TablePropertyListContext(ParserRuleContext):
 
@@ -8012,6 +8034,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class TablePropertyContext(ParserRuleContext):
 
@@ -8084,6 +8107,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class TablePropertyKeyContext(ParserRuleContext):
 
@@ -8163,6 +8187,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class TablePropertyValueContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -8241,6 +8266,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ConstantListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -8307,6 +8333,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class NestedConstantListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -8372,6 +8399,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class CreateFileFormatContext(ParserRuleContext):
 
@@ -8452,6 +8480,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class FileFormatContext(ParserRuleContext):
 
@@ -8565,6 +8594,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class StorageHandlerContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -8632,6 +8662,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ResourceContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -8682,6 +8713,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class QueryNoWithContext(ParserRuleContext):
 
@@ -8815,6 +8847,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class QueryOrganizationContext(ParserRuleContext):
 
@@ -9040,6 +9073,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class MultiInsertQueryBodyContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -9104,6 +9138,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class QueryTermContext(ParserRuleContext):
 
@@ -9227,7 +9262,7 @@ class SparkSqlBaseParser ( Parser ):
                         self.state = 1324
                         if not False:
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "False")
+                            raise FailedPredicateException(self, "legacy_setops_precedence_enbled")
                         self.state = 1325
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -9259,7 +9294,7 @@ class SparkSqlBaseParser ( Parser ):
                         self.state = 1331
                         if False:
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "!False")
+                            raise FailedPredicateException(self, "!legacy_setops_precedence_enbled")
                         self.state = 1332
                         localctx.operator = self.match(SparkSqlBaseParser.INTERSECT)
                         self.state = 1334
@@ -9285,7 +9320,7 @@ class SparkSqlBaseParser ( Parser ):
                         self.state = 1338
                         if False:
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "!False")
+                            raise FailedPredicateException(self, "!legacy_setops_precedence_enbled")
                         self.state = 1339
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -9318,6 +9353,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.unrollRecursionContexts(_parentctx)
         return localctx
+
 
     class QueryPrimaryContext(ParserRuleContext):
 
@@ -9487,6 +9523,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SortItemContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -9580,6 +9617,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class QuerySpecificationContext(ParserRuleContext):
 
@@ -9974,6 +10012,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class HintContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -10049,6 +10088,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class HintStatementContext(ParserRuleContext):
 
@@ -10139,6 +10179,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class FromClauseContext(ParserRuleContext):
 
@@ -10236,6 +10277,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class AggregationContext(ParserRuleContext):
 
@@ -10414,6 +10456,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class GroupingSetContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -10498,6 +10541,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class PivotClauseContext(ParserRuleContext):
 
@@ -10601,6 +10645,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class PivotColumnContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -10685,6 +10730,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class PivotValueContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -10754,6 +10800,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class LateralViewContext(ParserRuleContext):
 
@@ -10900,6 +10947,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SetQuantifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -10953,6 +11001,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class RelationContext(ParserRuleContext):
 
@@ -11017,6 +11066,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class JoinRelationContext(ParserRuleContext):
 
@@ -11109,6 +11159,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class JoinTypeContext(ParserRuleContext):
 
@@ -11260,6 +11311,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class JoinCriteriaContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -11333,6 +11385,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class SampleContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -11394,6 +11447,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class SampleMethodContext(ParserRuleContext):
 
@@ -11639,6 +11693,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class IdentifierListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -11688,6 +11743,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class IdentifierSeqContext(ParserRuleContext):
 
@@ -11750,6 +11806,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class OrderedIdentifierListContext(ParserRuleContext):
 
@@ -11816,6 +11873,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class OrderedIdentifierContext(ParserRuleContext):
 
@@ -11885,6 +11943,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class IdentifierCommentListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -11951,6 +12010,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class IdentifierCommentContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -12013,6 +12073,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class RelationPrimaryContext(ParserRuleContext):
 
@@ -12264,6 +12325,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class InlineTableContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -12336,6 +12398,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class FunctionTableContext(ParserRuleContext):
 
@@ -12421,6 +12484,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class TableAliasContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -12495,6 +12559,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class RowFormatContext(ParserRuleContext):
 
@@ -12760,6 +12825,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class TableIdentifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -12821,6 +12887,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class FunctionIdentifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -12881,6 +12948,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class NamedExpressionContext(ParserRuleContext):
 
@@ -12967,6 +13035,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class NamedExpressionSeqContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -13029,6 +13098,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ExpressionContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -13074,6 +13144,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class BooleanExpressionContext(ParserRuleContext):
 
@@ -13315,6 +13386,7 @@ class SparkSqlBaseParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
+
     class PredicateContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -13541,6 +13613,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class ValueExpressionContext(ParserRuleContext):
 
@@ -13858,6 +13931,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.unrollRecursionContexts(_parentctx)
         return localctx
+
 
     class PrimaryExpressionContext(ParserRuleContext):
 
@@ -14924,6 +14998,7 @@ class SparkSqlBaseParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
+
     class ConstantContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15167,6 +15242,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ComparisonOperatorContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15238,6 +15314,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class ArithmeticOperatorContext(ParserRuleContext):
 
@@ -15320,6 +15397,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class PredicateOperatorContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15380,6 +15458,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class BooleanValueContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15433,6 +15512,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class IntervalContext(ParserRuleContext):
 
@@ -15496,6 +15576,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class IntervalFieldContext(ParserRuleContext):
 
@@ -15567,6 +15648,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class IntervalValueContext(ParserRuleContext):
 
@@ -15657,6 +15739,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ColPositionContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15724,6 +15807,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class DataTypeContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15747,12 +15831,16 @@ class SparkSqlBaseParser ( Parser ):
             self.complex_ = None # Token
             self.copyFrom(ctx)
 
+        def LT(self):
+            return self.getToken(SparkSqlBaseParser.LT, 0)
         def dataType(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(SparkSqlBaseParser.DataTypeContext)
             else:
                 return self.getTypedRuleContext(SparkSqlBaseParser.DataTypeContext,i)
 
+        def GT(self):
+            return self.getToken(SparkSqlBaseParser.GT, 0)
         def ARRAY(self):
             return self.getToken(SparkSqlBaseParser.ARRAY, 0)
         def MAP(self):
@@ -15921,6 +16009,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class ColTypeListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -15982,6 +16071,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class ColTypeContext(ParserRuleContext):
 
@@ -16051,6 +16141,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class Complex_ColTypeListContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16112,6 +16203,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class Complex_ColTypeContext(ParserRuleContext):
 
@@ -16184,6 +16276,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class WhenClauseContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16246,6 +16339,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class WindowsContext(ParserRuleContext):
 
@@ -16314,6 +16408,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class NamedWindowContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16370,6 +16465,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class WindowSpecContext(ParserRuleContext):
 
@@ -16600,6 +16696,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class WindowFrameContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16709,6 +16806,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class FrameBoundContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16809,6 +16907,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class QualifiedNameContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -16870,6 +16969,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class IdentifierContext(ParserRuleContext):
 
@@ -17037,6 +17137,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class StrictIdentifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -17143,6 +17244,7 @@ class SparkSqlBaseParser ( Parser ):
             self.exitRule()
         return localctx
 
+
     class QuotedIdentifierContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -17187,6 +17289,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class NumberContext(ParserRuleContext):
 
@@ -17509,6 +17612,7 @@ class SparkSqlBaseParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
+
 
     class NonReservedContext(ParserRuleContext):
 
@@ -18227,10 +18331,6 @@ class SparkSqlBaseParser ( Parser ):
 
             if predIndex == 15:
                 return self.precpred(self._ctx, 3)
-
-    @property
-    def interp(self):
-        return self._interp
          
 
 
