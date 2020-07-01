@@ -18,12 +18,17 @@ STATEMENT_TYPE = Enum("STATEMENT_TYPE",
 
 
 class Table:
-    def __init__(self, database=None, table=None):
+    def __init__(self, database=None, table=None, is_temporary=False, is_external=False):
         self.database = database
         self.table = table
+        self.is_temporary = is_temporary
+        self.is_external = is_external
 
     def __str__(self):
-        return "%s.%s" % (self.database, self.table)
+        full_table_name = "%s.%s" % (self.database, self.table)
+        if self.is_temporary:
+            full_table_name += "   \033[01;31m<- temporary\033[0m"
+        return full_table_name
 
     def __repr__(self):
         return "Table(%s, %s)" % (self.database, self.table)

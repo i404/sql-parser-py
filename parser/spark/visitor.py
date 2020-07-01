@@ -81,8 +81,11 @@ class SparkSqlVisitor(SparkSqlBaseVisitor):
         self._aliases.add(self._get_token_text(ctx.identifier()))
 
     def visitCreateHiveTable(self, ctx: SparkSqlBaseParser.CreateHiveTableContext):
-        table_identifier = ctx.createTableHeader().tableIdentifier()
-        table = Table(self._get_token_text(table_identifier.db), self._get_token_text(table_identifier.table))
+        table_header = ctx.createTableHeader()
+        table_identifier = table_header.tableIdentifier()
+
+        table = Table(self._get_token_text(table_identifier.db), self._get_token_text(table_identifier.table),
+                      table_header.TEMPORARY() is not None, table_header.EXTERNAL() is not None)
 
         if ctx.query() is not None:
             super().visitQuery(ctx.query())
